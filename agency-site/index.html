@@ -208,6 +208,78 @@
         </div>
     </section>
 
+    <!-- Work Section -->
+    <section id="work" class="py-32 bg-black relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 work-title opacity-0 translate-y-10">Featured Work</h2>
+                <div class="h-1 w-20 bg-blue-600 rounded-full work-line opacity-0 scale-x-0 origin-left"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Project 1: Paws-N-Style -->
+                <a href="https://paws-n-style.netlify.app/" target="_blank" class="group block bg-card rounded-3xl overflow-hidden border border-gray-800 hover:border-blue-500/50 transition-all duration-500 work-card opacity-0 translate-y-10">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-blue-600/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://placehold.co/800x600/1a1a1a/ec4899?text=Paws-N-Style" alt="Paws-N-Style" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">Paws-N-Style</h3>
+                        <p class="text-gray-400 mb-4">Professional pet grooming services in Oxnard, CA. Bathing, haircuts, and special care.</p>
+                        <div class="flex items-center text-blue-500 font-bold text-sm">
+                            VIEW PROJECT <i data-lucide="arrow-up-right" class="w-4 h-4 ml-2"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 2: Channel Welding -->
+                <a href="https://channel-welding.netlify.app" target="_blank" class="group block bg-card rounded-3xl overflow-hidden border border-gray-800 hover:border-blue-500/50 transition-all duration-500 work-card opacity-0 translate-y-10">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-blue-600/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://placehold.co/800x600/1a1a1a/f97316?text=Channel+Welding" alt="Channel Welding" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">Channel Welding</h3>
+                        <p class="text-gray-400 mb-4">LA Approved Structural Steel & Certified Welding. Industrial fabrication and repair.</p>
+                        <div class="flex items-center text-blue-500 font-bold text-sm">
+                            VIEW PROJECT <i data-lucide="arrow-up-right" class="w-4 h-4 ml-2"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 3: Phil's Gardening -->
+                <a href="https://phils-gardening.netlify.app" target="_blank" class="group block bg-card rounded-3xl overflow-hidden border border-gray-800 hover:border-blue-500/50 transition-all duration-500 work-card opacity-0 translate-y-10">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-blue-600/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://placehold.co/800x600/1a1a1a/166534?text=Phil's+Gardening" alt="Phil's Gardening" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">Phil's Gardening</h3>
+                        <p class="text-gray-400 mb-4">Exceptional Landscaping Services in Oxnard. Lawn care, design, and maintenance.</p>
+                        <div class="flex items-center text-blue-500 font-bold text-sm">
+                            VIEW PROJECT <i data-lucide="arrow-up-right" class="w-4 h-4 ml-2"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 4: Haulin Handyman -->
+                <a href="https://haulin-handyman.netlify.app" target="_blank" class="group block bg-card rounded-3xl overflow-hidden border border-gray-800 hover:border-blue-500/50 transition-all duration-500 work-card opacity-0 translate-y-10">
+                    <div class="relative h-64 overflow-hidden">
+                        <div class="absolute inset-0 bg-blue-600/10 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://placehold.co/800x600/1a1a1a/1e40af?text=Haulin+Handyman" alt="Haulin Handyman" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">Haulin Handyman</h3>
+                        <p class="text-gray-400 mb-4">Expert Home Repairs, Moving & Remodeling. Professional handyman services.</p>
+                        <div class="flex items-center text-blue-500 font-bold text-sm">
+                            VIEW PROJECT <i data-lucide="arrow-up-right" class="w-4 h-4 ml-2"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-32 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-900/10 to-transparent pointer-events-none"></div>
@@ -296,6 +368,42 @@
         gsap.to(".service-card", {
             scrollTrigger: {
                 trigger: "#services",
+                start: "top 75%",
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power3.out"
+        });
+
+        // Work Animation
+        gsap.to(".work-title", {
+            scrollTrigger: {
+                trigger: "#work",
+                start: "top 80%",
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out"
+        });
+
+        gsap.to(".work-line", {
+            scrollTrigger: {
+                trigger: "#work",
+                start: "top 80%",
+            },
+            scaleX: 1,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: 0.2
+        });
+
+        gsap.to(".work-card", {
+            scrollTrigger: {
+                trigger: "#work",
                 start: "top 75%",
             },
             opacity: 1,
