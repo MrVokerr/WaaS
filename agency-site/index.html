@@ -1,261 +1,321 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Web Services | Managed Web Design</title>
+    <title>JS Web Services | Future-Ready Digital Solutions</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        dark: '#0a0a0a',
+                        card: '#171717',
+                        accent: '#3b82f6', // Blue
+                        glow: '#60a5fa',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* Reset and Base Styles */
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --secondary: #64748b;
-            --bg-light: #f8fafc;
-            --text-main: #1e293b;
-            --text-light: #64748b;
-            --white: #ffffff;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
         body {
-            font-family: "Inter", sans-serif;
-            line-height: 1.6;
-            color: var(--text-main);
-            background-color: var(--bg-light);
-        }
-
-        /* Layout */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Header */
-        header {
-            background: var(--white);
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-            padding: 1.5rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
         }
         
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .cta-button {
-            background-color: var(--primary);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s;
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(0,0,0,0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
         }
 
-        .cta-button:hover {
-            background-color: var(--primary-dark);
+        .card-hover {
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 5rem 0;
-            background: white;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            color: #0f172a;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        /* Services */
-        .services {
-            padding: 4rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2rem;
-            color: #0f172a;
-        }
-
-        .service-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow);
-            max-width: 500px;
-            margin: 0 auto;
-            border: 1px solid #e2e8f0;
-        }
-
-        .service-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #f1f5f9;
-            padding-bottom: 1rem;
-        }
-
-        .service-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .price {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .price span {
-            font-size: 1rem;
-            color: var(--text-light);
-            font-weight: 400;
-        }
-
-        .features-list {
-            list-style: none;
-        }
-
-        .features-list li {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .features-list li::before {
-            content: "✓";
-            color: var(--primary);
-            font-weight: bold;
-            margin-right: 0.75rem;
-        }
-
-        /* Contact */
-        .contact {
-            background: #1e293b;
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-        }
-
-        .contact h2 {
-            margin-bottom: 2rem;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-item strong {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #94a3b8;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: var(--text-light);
-            font-size: 0.875rem;
-            border-top: 1px solid #e2e8f0;
+        .card-hover:hover {
+            transform: translateY(-10px);
+            border-color: rgba(96, 165, 250, 0.3);
+            box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.2);
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="container header-content">
-            <a href="#" class="logo">JS Web Services</a>
-            <a href="#contact" class="cta-button">Get Started</a>
-        </div>
-    </header>
+<body class="antialiased">
 
-    <section class="hero">
-        <div class="container">
-            <h1>Professional Web Solutions for Local Business</h1>
-            <p>We provide full-service website management, design, and hosting for trades and small businesses in Oxnard, CA.</p>
-            <a href="#services" class="cta-button">View Plans</a>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-mono font-bold tracking-tighter flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <span class="text-white text-lg">JS</span>
+                </div>
+                <span class="hidden sm:block">Web Services</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 font-medium text-gray-400">
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#work" class="hover:text-white transition-colors">Work</a>
+                <a href="#process" class="hover:text-white transition-colors">Process</a>
+            </div>
+
+            <a href="#contact" class="px-6 py-2.5 bg-white text-black font-bold rounded-full hover:bg-blue-50 transition-colors text-sm">
+                Start Project
+            </a>
         </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="hero-glow animate-pulse"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 text-center z-10">
+            <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-sm font-mono tracking-wide opacity-0" id="hero-badge">
+                NEXT GEN WEB DEVELOPMENT
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8 tracking-tight">
+                <span class="block opacity-0 translate-y-10 hero-text">Crafting Digital</span>
+                <span class="block gradient-text opacity-0 translate-y-10 hero-text">Masterpieces</span>
+            </h1>
+            
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-12 opacity-0 translate-y-10 hero-text leading-relaxed">
+                We build high-performance websites that blend stunning aesthetics with rock-solid engineering. Elevate your brand today.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 translate-y-10 hero-text">
+                <a href="#work" class="px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg hover:bg-blue-700 transition-all hover:scale-105 flex items-center justify-center gap-2">
+                    View Our Work <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+                <a href="#contact" class="px-8 py-4 bg-transparent border border-gray-700 text-white rounded-full font-bold text-lg hover:border-white transition-all flex items-center justify-center">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+
+        <!-- Abstract Background Elements -->
+        <div class="absolute top-1/4 left-10 w-24 h-24 border border-gray-800 rounded-full opacity-20 animate-spin-slow"></div>
+        <div class="absolute bottom-1/4 right-10 w-32 h-32 border border-gray-800 rounded-full opacity-20 animate-bounce"></div>
     </section>
 
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title">Simple, Transparent Pricing</h2>
-            <div class="service-card">
-                <div class="service-header">
-                    <h3 class="service-title">Standard Plan</h3>
-                    <div class="price">$99<span>/month</span></div>
+    <!-- Services Section -->
+    <section id="services" class="py-32 bg-dark relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 service-title opacity-0 translate-y-10">Our Expertise</h2>
+                <div class="h-1 w-20 bg-blue-600 rounded-full service-line opacity-0 scale-x-0 origin-left"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-card p-8 rounded-3xl card-hover service-card opacity-0 translate-y-10">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-8">
+                        <i data-lucide="layout" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">UI/UX Design</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        User-centric interfaces that look beautiful and function flawlessly. We design with purpose and precision.
+                    </p>
                 </div>
-                <ul class="features-list">
-                    <li>Custom Mobile-Responsive Design</li>
-                    <li>Secure Hosting (SSL Included)</li>
-                    <li>Domain Management</li>
-                    <li>Unlimited Content Updates</li>
-                    <li>Monthly Performance Reports</li>
-                </ul>
+
+                <!-- Service 2 -->
+                <div class="bg-card p-8 rounded-3xl card-hover service-card opacity-0 translate-y-10">
+                    <div class="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-500 mb-8">
+                        <i data-lucide="code-2" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Development</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Clean, modern code using the latest frameworks. Fast, secure, and scalable solutions for any business size.
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-card p-8 rounded-3xl card-hover service-card opacity-0 translate-y-10">
+                    <div class="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 mb-8">
+                        <i data-lucide="rocket" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Growth & SEO</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Strategies to get you seen. We optimize every pixel to ensure high ranking and maximum conversion.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Ready to grow your business?</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <strong>Owner</strong>
-                    John Santana
-                </div>
-                <div class="contact-item">
-                    <strong>Email</strong>
-                    jasantana93@gmail.com
-                </div>
-                <div class="contact-item">
-                    <strong>Location</strong>
-                    Oxnard, CA
-                </div>
+    <!-- Stats Section -->
+    <section class="py-20 border-y border-gray-900 bg-black/50">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+            <div class="stat-item">
+                <div class="text-4xl md:text-5xl font-mono font-bold text-white mb-2">50+</div>
+                <div class="text-gray-500 text-sm uppercase tracking-widest">Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="text-4xl md:text-5xl font-mono font-bold text-white mb-2">100%</div>
+                <div class="text-gray-500 text-sm uppercase tracking-widest">Satisfaction</div>
+            </div>
+            <div class="stat-item">
+                <div class="text-4xl md:text-5xl font-mono font-bold text-white mb-2">24/7</div>
+                <div class="text-gray-500 text-sm uppercase tracking-widest">Support</div>
+            </div>
+            <div class="stat-item">
+                <div class="text-4xl md:text-5xl font-mono font-bold text-white mb-2">5yr</div>
+                <div class="text-gray-500 text-sm uppercase tracking-widest">Experience</div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            &copy; 2025 JS Web Services. All rights reserved.
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-900/10 to-transparent pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="bg-card rounded-[3rem] p-8 md:p-16 border border-gray-800 shadow-2xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4">Let's Build Something Great</h2>
+                    <p class="text-gray-400">Ready to start? Send us a message and let's talk.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-mono text-gray-500 ml-2">NAME</label>
+                            <input type="text" class="w-full bg-dark border border-gray-800 rounded-xl px-6 py-4 text-white focus:border-blue-500 focus:outline-none transition-colors" placeholder="John Doe">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-mono text-gray-500 ml-2">EMAIL</label>
+                            <input type="email" class="w-full bg-dark border border-gray-800 rounded-xl px-6 py-4 text-white focus:border-blue-500 focus:outline-none transition-colors" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-mono text-gray-500 ml-2">MESSAGE</label>
+                        <textarea rows="4" class="w-full bg-dark border border-gray-800 rounded-xl px-6 py-4 text-white focus:border-blue-500 focus:outline-none transition-colors" placeholder="Tell us about your project..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-white text-black font-bold py-5 rounded-xl hover:bg-blue-50 transition-all transform hover:-translate-y-1">
+                        Send Message
+                    </button>
+                </form>
+            </div>
         </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-900 text-center text-gray-600 text-sm">
+        <p>&copy; 2025 JS Web Services. All rights reserved.</p>
     </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Animation
+        const tl = gsap.timeline();
+        
+        tl.to("#hero-badge", { opacity: 1, duration: 0.8, ease: "power3.out" })
+          .to(".hero-text", { 
+              opacity: 1, 
+              y: 0, 
+              duration: 1, 
+              stagger: 0.2, 
+              ease: "power3.out" 
+          }, "-=0.4");
+
+        // Services Animation
+        gsap.to(".service-title", {
+            scrollTrigger: {
+                trigger: "#services",
+                start: "top 80%",
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out"
+        });
+
+        gsap.to(".service-line", {
+            scrollTrigger: {
+                trigger: "#services",
+                start: "top 80%",
+            },
+            scaleX: 1,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: 0.2
+        });
+
+        gsap.to(".service-card", {
+            scrollTrigger: {
+                trigger: "#services",
+                start: "top 75%",
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power3.out"
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-2');
+            }
+        });
+    </script>
 </body>
 </html>
